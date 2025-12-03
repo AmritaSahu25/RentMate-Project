@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentMate | Smart Rent House Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="rm-header">
+        <nav class="rm-nav">
+            <div class="rm-brand">
+                <img src="./RentMAte LOGO.png" alt="RentMate logo" class="rm-logo">
+                <div>
+                    <h1>RentMate</h1>
+                    <p class="rm-tagline">Manage rentals. Simplified.</p>
+                </div>
+            </div>
+            <div class="rm-nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#listings">Listings</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="rm-nav-actions">
+                <button class="rm-btn rm-btn-outline">Login</button>
+                <button class="rm-btn rm-btn-primary">Get Started</button>
+            </div>
+            <button class="rm-nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero / Search Section -->
+    <main id="home" class="rm-main">
+        <section class="rm-hero">
+            <div class="rm-hero-content">
+                <h2>All your rental properties in one place.</h2>
+                <p>
+                    RentMate helps landlords, property managers, and tenants stay on top of rent,
+                    maintenance, and agreements with an easy-to-use dashboard.
+                </p>
+                <div class="rm-hero-cta">
+                    <button class="rm-btn rm-btn-primary">Explore Dashboard</button>
+                    <button class="rm-btn rm-btn-ghost">Watch Demo</button>
+                </div>
+                <div class="rm-hero-stats">
+                    <div>
+                        <h3>500+</h3>
+                        <p>Active Properties</p>
+                    </div>
+                    <div>
+                        <h3>1.2k+</h3>
+                        <p>Happy Tenants</p>
+                    </div>
+                    <div>
+                        <h3>98%</h3>
+                        <p>On-time Payments</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rm-hero-search-card">
+                <h3>Find a rental</h3>
+                <form id="search-form" class="rm-search-form">
+                    <div class="rm-field">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="City, area, or ZIP">
+                    </div>
+                    <div class="rm-field">
+                        <label for="type">Property Type</label>
+                        <select id="type">
+                            <option value="">Any</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="house">House</option>
+                            <option value="studio">Studio</option>
+                        </select>
+                    </div>
+                    <div class="rm-field rm-field-inline">
+                        <div>
+                            <label for="min-rent">Min Rent</label>
+                            <input type="number" id="min-rent" placeholder="₹10,000">
+                        </div>
+                        <span class="rm-field-separator">-</span>
+                        <div>
+                            <label for="max-rent">Max Rent</label>
+                            <input type="number" id="max-rent" placeholder="₹50,000">
+                        </div>
+                    </div>
+                    <button type="submit" class="rm-btn rm-btn-primary rm-btn-full">
+                        Search Rentals
+                    </button>
+                    <p id="search-result" class="rm-search-result"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Featured Listings -->
+        <section id="listings" class="rm-section rm-section-light">
+            <div class="rm-section-header">
+                <h2>Featured Rentals</h2>
+                <p>Sample data to visualize how RentMate shows your properties.</p>
+            </div>
+            <div id="property-list" class="rm-card-grid">
+                <!-- Cards rendered by JavaScript -->
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="rm-section">
+            <div class="rm-section-header">
+                <h2>Why RentMate?</h2>
+                <p>Designed for owners, managers, and tenants to stay perfectly in sync.</p>
+            </div>
+            <div class="rm-features-grid">
+                <article class="rm-feature-card">
+                    <h3>Smart Rent Tracking</h3>
+                    <p>View upcoming, paid, and overdue rents in a single dashboard.</p>
+                </article>
+                <article class="rm-feature-card">
+                    <h3>Tenant Management</h3>
+                    <p>Maintain tenant profiles, agreements, and communication history.</p>
+                </article>
+                <article class="rm-feature-card">
+                    <h3>Maintenance Requests</h3>
+                    <p>Track complaints, assign vendors, and close tasks with ease.</p>
+                </article>
+                <article class="rm-feature-card">
+                    <h3>Analytics & Reports</h3>
+                    <p>Understand occupancy, revenue, and trends with clear insights.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Contact / CTA -->
+        <section id="contact" class="rm-section rm-section-light rm-contact-section">
+            <div class="rm-contact-info">
+                <h2>Let’s talk about your rentals</h2>
+                <p>Share your details and our team will reach out with a tailored RentMate demo.</p>
+                <ul>
+                    <li><strong>Email:</strong> support@rentmate.app</li>
+                    <li><strong>Phone:</strong> +91-98765-43210</li>
+                    <li><strong>Address:</strong> Your City, Your Country</li>
+                </ul>
+            </div>
+            <form id="contact-form" class="rm-contact-form">
+                <div class="rm-field">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="Enter your name">
+                </div>
+                <div class="rm-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="you@example.com">
+                </div>
+                <div class="rm-field">
+                    <label for="role">I am a</label>
+                    <select id="role" required>
+                        <option value="">Select role</option>
+                        <option value="owner">Property Owner</option>
+                        <option value="manager">Property Manager</option>
+                        <option value="tenant">Tenant</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="rm-field">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="4" placeholder="Tell us about your requirements"></textarea>
+                </div>
+                <button type="submit" class="rm-btn rm-btn-primary rm-btn-full">
+                    Request Demo
+                </button>
+                <p id="contact-result" class="rm-search-result"></p>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="rm-footer">
+        <p>&copy; <span id="year"></span> RentMate. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
