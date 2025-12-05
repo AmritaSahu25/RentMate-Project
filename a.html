@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeNest - Find Your Perfect Rental Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: #2d3436;
+            --light: #f8f9fa;
+            --gray: #636e72;
+            --success: #00b894;
+            --warning: #fdcb6e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ee5a52;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 900px;
+            margin: 2rem auto 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr auto;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.8rem;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Filters */
+        .filters {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            background: white;
+            border: 2px solid #dfe6e9;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Properties Grid */
+        .properties {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--success);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-location {
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--gray);
+        }
+
+        .property-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--warning);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--light);
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-box h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #dfe6e9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #636e72;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                HomeNest
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('properties')">Properties</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" id="dashboardLink" style="display:none;" onclick="showSection('dashboard')">Dashboard</a></li>
+            </ul>
+            <div>
+                <button class="btn btn-outline" id="loginBtn" onclick="openModal('loginModal')">Login</button>
+                <button class="btn btn-primary" id="signupBtn" onclick="openModal('signupModal')">Sign Up</button>
+                <button class="btn btn-primary" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="homeSection">
+        <h1>Find Your Dream Rental Home</h1>
+        <p>Discover thousands of properties at your fingertips</p>
+        
+        <div class="search-container">
+            <form class="search-form" onsubmit="searchProperties(event)">
+                <input type="text" class="search-input" placeholder="Search by location, city..." id="searchLocation">
+                <select class="search-input" id="propertyType">
+                    <option value="">Property Type</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="house">House</option>
+                    <option value="villa">Villa</option>
+                    <option value="studio">Studio</option>
+                </select>
+                <select class="search-input" id="budget">
+                    <option value="">Budget</option>
+                    <option value="0-10000">Under ₹10,000</option>
+                    <option value="10000-20000">₹10,000 - ₹20,000</option>
+                    <option value="20000-30000">₹20,000 - ₹30,000</option>
+                    <option value="30000-50000">₹30,000 - ₹50,000</option>
+                    <option value="50000+">Above ₹50,000</option>
+                </select>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterBy('all')">All Properties</button>
+        <button class="filter-btn" onclick="filterBy('apartment')">Apartments</button>
+        <button class="filter-btn" onclick="filterBy('house')">Houses</button>
+        <button class="filter-btn" onclick="filterBy('villa')">Villas</button>
+        <button class="filter-btn" onclick="filterBy('furnished')">Furnished</button>
+        <button class="filter-btn" onclick="filterBy('available')">Available Now</button>
+    </div>
+
+    <!-- Properties Section -->
+    <section class="properties" id="propertiesSection">
+        <h2 class="section-title">Featured Properties</h2>
+        <div class="property-grid" id="propertyGrid">
+            <!-- Properties will be loaded here dynamically -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-title" style="text-align: center;">Why Choose HomeNest?</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Verified Properties</h3>
+                <p>All properties are verified by our team for authenticity</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+                <h3>Secure Payments</h3>
+                <p>Multiple payment options with secure transaction processing</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Support</h3>
+                <p>Round the clock customer support for all your queries</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-star"></i></div>
+                <h3>Trusted Reviews</h3>
+                <p>Genuine reviews from verified tenants</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboardSection">
+        <div class="dashboard-header">
+            <h2 class="section-title">My Dashboard</h2>
+            <button class="btn btn-primary" onclick="openModal('addPropertyModal')">
+                <i class="fas fa-plus"></i> Add Property
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalProperties">0</div>
+                <div>Total Properties</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalBookings">0</div>
+                <div>Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalEarnings">₹0</div>
+                <div>Total Earnings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgRating">0.0</div>
+                <div>Average Rating</div>
+            </div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="showTab('myProperties')">My Properties</button>
+            <button class="tab-btn" onclick="showTab('bookings')">Bookings</button>
+            <button class="tab-btn" onclick="showTab('payments')">Payments</button>
+            <button class="tab-btn" onclick="showTab('reviews')">Reviews</button>
+        </div>
+
+        <div id="dashboardContent">
+            <!-- Dashboard content will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required id="loginEmail">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required id="loginPassword">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <p style="margin-top: 1rem; text-align: center;">
+                Don't have an account? <a href="#" onclick="closeModal('loginModal'); openModal('signupModal')" style="color: var(--primary);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign Up</h2>
+                <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
+            </div>
+            <form onsubmit="signup(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required id="signupName">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required id="signupEmail">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" required id="signupPhone">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required id="signupPassword">
+                </div>
+                <div class="form-group">
+                    <label>User Type</label>
+                    <select required id="signupRole">
+                        <option value="tenant">Tenant</option>
+                        <option value="owner">Property Owner</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Property Modal -->
+    <div class="modal" id="addPropertyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Property</h2>
+                <span class="close-modal" onclick="closeModal('addPropertyModal')">&times;</span>
+            </div>
+            <form onsubmit="addProperty(event)">
+                <div class="form-group">
+                    <label>Property Title</label>
+                    <input type="text" required id="propertyTitle">
+                </div>
+                <div class="form-group">
+                    <label>Property Type</label>
+                    <select required id="propertyTypeAdd">
+                        <option value="apartment">Apartment</option>
+                        <option value="house">House</option>
+                        <option value="villa">Villa</option>
+                        <option value="studio">Studio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" required id="propertyLocation">
+                </div>
+                <div class="form-group">
+                    <label>Monthly Rent (₹)</label>
+                    <input type="number" required id="propertyPrice">
+                </div>
+                <div class="form-group">
+                    <label>Bedrooms</label>
+                    <input type="number" required id="propertyBedrooms">
+                </div>
+                <div class="form-group">
+                    <label>Bathrooms</label>
+                    <input type="number" required id="propertyBathrooms">
+                </div>
+                <div class="form-group">
+                    <label>Area (sq ft)</label>
+                    <input type="number" required id="propertyArea">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea required id="propertyDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Amenities (comma separated)</label>
+                    <input type="text" placeholder="e.g., Parking, Gym, Pool" id="propertyAmenities">
+                </div>
+                <div class="form-group">
+                    <label>Furnishing Status</label>
+                    <select required id="propertyFurnishing">
+                        <option value="unfurnished">Unfurnished</option>
+                        <option value="semi-furnished">Semi-Furnished</option>
+                        <option value="fully-furnished">Fully Furnished</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Add Property</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About HomeNest</h3>
+                <p>Your trusted partner in finding the perfect rental home. We connect tenants with verified property owners.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>For Owners</h3>
+                <ul>
+                    <li><a href="#">List Property</a></li>
+                    <li><a href="#">Owner Dashboard</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@homenest.com</p>
+                <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 HomeNest. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample property data
+        let properties = [
+            {
+                id: 1,
+                title: "Luxury 3BHK Apartment",
+                type: "apartment",
+                location: "Andheri West, Mumbai",
+                price: 45000,
+                bedrooms: 3,
+                bathrooms: 2,
+                area: 1500,
+                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400",
+                rating: 4.5,
+                reviews: 23,
+                available: true,
+                furnishing: "fully-furnished"
+            },
+            {
+                id: 2,
+                title: "Cozy 2BHK House",
+                type: "house",
+                location: "Koramangala, Bangalore",
+                price: 28000,
+                bedrooms: 2,
+                bathrooms: 2,
+                area: 1200,
+                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400",
+                rating: 4.8,
+                reviews: 45,
+                available: true,
+                furnishing: "semi-furnished"
+            },
+            {
+                id: 3,
+                title: "Modern Studio Apartment",
+                type: "studio",
+                location: "Gurgaon, Delhi NCR",
+                price: 18000,
+                bedrooms: 1,
+                bathrooms: 1,
+                area: 600,
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400",
+                rating: 4.2,
+                reviews: 12,
+                available: true,
+                furnishing: "fully-furnished"
+            }
+        ];
+
+        let currentUser = null;
+
+        // Load properties
+        function loadProperties(filter = 'all') {
+            const grid = document.getElementById('propertyGrid');
+            let filteredProperties = properties;
+
+            if (filter !== 'all') {
+                filteredProperties = properties.filter(p => 
+                    p.type === filter || p.furnishing === filter || 
+                    (filter === 'available' && p.available)
+                );
+            }
+
+            grid.innerHTML = filteredProperties.map(property => `
+                <div class="property-card" onclick="viewProperty(${property.id})">
+                    <div style="position: relative;">
+                        <img src="${property.image}" alt="${property.title}" class="property-image">
+                        ${property.available ? '<span class="property-badge">Available</span>' : ''}
+                    </div>
+                    <div class="property-info">
+                        <div class="property-price">₹${property.price.toLocaleString()}/month</div>
+                        <div class="property-title">${property.title}</div>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${property.location}
+                        </div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i>
+                                ${property.bedrooms} Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i>
+                                ${property.bathrooms} Baths
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i>
+                                ${property.area} sqft
+                            </div>
+                        </div>
+                        <div class="property-rating">
+                            <i class="fas fa-star"></i>
+                            ${property.rating} (${property.reviews} reviews)
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Filter functions
+        function filterBy(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            loadProperties(type);
+        }
+
+        // Search function
+        function searchProperties(e) {
+            e.preventDefault();
+            const location = document.getElementById('searchLocation').value;
+            const type = document.getElementById('propertyType').value;
+            const budget = document.getElementById('budget').value;
+            
+            let filtered = properties;
+            
+            if (location) {
+                filtered = filtered.filter(p => 
+                    p.location.toLowerCase().includes(location.toLowerCase())
+                );
+            }
+            
+            if (type) {
+                filtered = filtered.filter(p => p.type === type);
+            }
+            
+            if (budget) {
+                const [min, max] = budget.includes('+') ? 
+                    [parseInt(budget.replace('+', '')), Infinity] :
+                    budget.split('-').map(x => parseInt(x));
+                filtered = filtered.filter(p => p.price >= min && p.price <= max);
+            }
+            
+            properties = filtered;
+            loadProperties();
+        }
+
+        // Authentication functions
+        function signup(e) {
+            e.preventDefault();
+            const userData = {
+                name: document.getElementById('signupName').value,
+                email: document.getElementById('signupEmail').value,
+                phone: document.getElementById('signupPhone').value,
+                password: document.getElementById('signupPassword').value,
+                role: document.getElementById('signupRole').value
+            };
+            
+            // Store in localStorage (replace with API call)
+            localStorage.setItem('user', JSON.stringify(userData));
+            currentUser = userData;
+            
+            closeModal('signupModal');
+            updateUIAfterLogin();
+            alert('Account created successfully!');
+        }
+
+        function login(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Retrieve from localStorage (replace with API call)
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+            
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                currentUser = storedUser;
+                closeModal('loginModal');
+                updateUIAfterLogin();
+                alert('Login successful!');
+            } else {
+                alert('Invalid credentials!');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('user');
+            document.getElementById('loginBtn').style.display = 'inline-block';
+            document.getElementById('signupBtn').style.display = 'inline-block';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('dashboardLink').style.display = 'none';
+            showSection('home');
+        }
+
+        function updateUIAfterLogin() {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('signupBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+            document.getElementById('dashboardLink').style.display = 'block';
+        }
+
+        // Add property function
+        function addProperty(e) {
+            e.preventDefault();
+            
+            const newProperty = {
+                id: properties.length + 1,
+                title: document.getElementById('propertyTitle').value,
+                type: document.getElementById('propertyTypeAdd').value,
+                location: document.getElementById('propertyLocation').value,
+                price: parseInt(document.getElementById('propertyPrice').value),
+                bedrooms: parseInt(document.getElementById('propertyBedrooms').value),
+                bathrooms: parseInt(document.getElementById('propertyBathrooms').value),
+                area: parseInt(document.getElementById('propertyArea').value),
+                description: document.getElementById('propertyDescription').value,
+                amenities: document.getElementById('propertyAmenities').value.split(','),
+                furnishing: document.getElementById('propertyFurnishing').value,
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400",
+                rating: 0,
+                reviews: 0,
+                available: true,
+                owner: currentUser.email
+            };
+            
+            properties.push(newProperty);
+            closeModal('addPropertyModal');
+            loadProperties();
+            alert('Property added successfully!');
+            
+            // Reset form
+            e.target.reset();
+        }
+
+        // Section navigation
+        function showSection(section) {
+            document.getElementById('homeSection').style.display = section === 'home' ? 'block' : 'none';
+            document.getElementById('propertiesSection').style.display = 
+                (section === 'home' || section === 'properties') ? 'block' : 'none';
+            document.getElementById('dashboardSection').classList.toggle('active', section === 'dashboard');
+            
+            if (section === 'dashboard' && currentUser) {
+                loadDashboard();
+            }
+        }
+
+        // Dashboard functions
+        function loadDashboard() {
+            const userProperties = properties.filter(p => p.owner === currentUser.email);
+            document.getElementById('totalProperties').textContent = userProperties.length;
+            document.getElementById('totalBookings').textContent = Math.floor(Math.random() * 20);
+            document.getElementById('totalEarnings').textContent = 
+                '₹' + (userProperties.reduce((sum, p) => sum + p.price, 0) * 0.8).toLocaleString();
+            document.getElementById('avgRating').textContent = '4.5';
+            
+            showTab('myProperties');
+        }
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const content = document.getElementById('dashboardContent');
+            
+            if (tab === 'myProperties') {
+                const userProperties = properties.filter(p => p.owner === currentUser.email);
+                content.innerHTML = `
+                    <div class="property-grid">
+                        ${userProperties.map(p => `
+                            <div class="property-card">
+                                <img src="${p.image}" alt="${p.title}" class="property-image">
+                                <div class="property-info">
+                                    <div class="property-price">₹${p.price.toLocaleString()}/month</div>
+                                    <div class="property-title">${p.title}</div>
+                                    <div class="property-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        ${p.location}
+                                    </div>
+                                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                                        <button class="btn btn-outline" style="flex: 1;">Edit</button>
+                                        <button class="btn btn-primary" style="flex: 1;">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (tab === 'bookings') {
+                content.innerHTML = '<p>Booking requests will appear here</p>';
+            } else if (tab === 'payments') {
+                content.innerHTML = '<p>Payment history will appear here</p>';
+            } else if (tab === 'reviews') {
+                content.innerHTML = '<p>Reviews will appear here</p>';
+            }
+        }
+
+        function viewProperty(id) {
+            alert('Property details view - Connect to backend for full details');
+        }
+
+        // Initialize
+        window.onload = function() {
+            loadProperties();
+            
+            // Check if user is logged in
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateUIAfterLogin();
+            }
+        };
+    </script>
+</body>
+</html>
